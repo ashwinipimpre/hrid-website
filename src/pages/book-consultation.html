@@ -1,0 +1,63 @@
+<!-- title: Book a Consultation -->
+<!-- description: Book a free 30-minute consultation with Hrid Digital Group to discuss your ads, social media and growth goals. -->
+<!-- nav: book -->
+<div class="wrap">
+  <div class="page-hero">
+    <span class="label">Book a consultation</span>
+    <h1>A free 30-minute <em>strategy call.</em></h1>
+    <p>Tell us a little about your business and pick a time that suits you. We will confirm by email or WhatsApp.</p>
+  </div>
+  <div class="form-layout">
+    <form class="site-form" name="consultation" method="POST" data-netlify="true" netlify-honeypot="bot-field" data-success="Thanks! We will confirm your call time by email or WhatsApp.">
+      <input type="hidden" name="form-name" value="consultation">
+      <p class="hp"><label>Leave this empty <input name="bot-field"></label></p>
+      <div class="row">
+        <div class="field"><label for="b-name">Your name</label><input id="b-name" name="name" autocomplete="name" required></div>
+        <div class="field"><label for="b-company">Company</label><input id="b-company" name="company" autocomplete="organization" required></div>
+      </div>
+      <div class="row">
+        <div class="field"><label for="b-email">Email</label><input id="b-email" name="email" type="email" autocomplete="email" required></div>
+        <div class="field"><label for="b-phone">Phone / WhatsApp</label><input id="b-phone" name="phone" type="tel" autocomplete="tel" required></div>
+      </div>
+      <div class="field"><label for="b-site">Website</label><input id="b-site" name="website" type="url" placeholder="https://"></div>
+      <div class="row">
+        <div class="field"><label for="b-service">Main interest</label>
+          <select id="b-service" name="service" required>
+            <option value="">Choose one</option>
+            <option>Google Ads</option><option>Meta Ads</option><option>Amazon Ads</option><option>Local Services Ads</option><option>LinkedIn Ads</option>
+            <option>Social media management</option><option>YouTube channel management</option><option>Google Business Profile</option>
+            <option>GA4 / GTM / conversion tracking</option><option>Not sure yet</option>
+          </select>
+        </div>
+        <div class="field"><label for="b-budget">Monthly ad budget</label>
+          <select id="b-budget" name="budget">
+            <option value="">Choose one</option>
+            <option>Not running ads yet</option><option>Under ₹50,000 / $600</option><option>₹50,000 to ₹2,00,000 / $600 to $2,500</option>
+            <option>₹2,00,000 to ₹10,00,000 / $2,500 to $12,000</option><option>Above ₹10,00,000 / $12,000</option>
+          </select>
+        </div>
+      </div>
+      <div class="row">
+        <div class="field"><label for="b-date">Preferred date</label><input id="b-date" name="date" type="date"></div>
+        <div class="field"><label for="b-time">Preferred time</label>
+          <select id="b-time" name="time"><option>Morning (10am to 1pm IST)</option><option>Afternoon (1pm to 5pm IST)</option><option>Evening (5pm to 8pm IST)</option></select>
+        </div>
+      </div>
+      <div class="field"><label for="b-msg">Anything we should know?</label><textarea id="b-msg" name="message"></textarea></div>
+      <button class="btn accent" type="submit">Request my call</button>
+      <p class="form-status" role="status" aria-live="polite"></p>
+    </form>
+    <aside class="aside-list">
+      <div class="card">
+        <h3>On the call we will</h3>
+        <ul>
+          <li>Understand your business, customers and goals</li>
+          <li>Look at what you are running today</li>
+          <li>Suggest the right channels and starting budget</li>
+          <li>Answer any questions, with no obligation</li>
+        </ul>
+      </div>
+      <div class="contact-item"><span class="label">Or call us now</span><a class="val" href="tel:{{phone_raw}}">{{phone}}</a></div>
+    </aside>
+  </div>
+</div>

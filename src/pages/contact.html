@@ -1,0 +1,37 @@
+<!-- title: Contact Us -->
+<!-- description: Contact Hrid Digital Group by email, phone or WhatsApp, or send us a message about your marketing goals. -->
+<!-- nav: contact -->
+<div class="wrap">
+  <div class="page-hero">
+    <span class="label">Contact us</span>
+    <h1>Let's talk about <em>your growth.</em></h1>
+    <p>Send a message, call, or WhatsApp us. We reply within one working day.</p>
+  </div>
+  <div class="form-layout">
+    <form class="site-form" name="contact" method="POST" data-netlify="true" netlify-honeypot="bot-field" data-success="Thanks! We will reply within one working day.">
+      <input type="hidden" name="form-name" value="contact">
+      <p class="hp"><label>Leave this empty <input name="bot-field"></label></p>
+      <div class="row">
+        <div class="field"><label for="c-name">Your name</label><input id="c-name" name="name" autocomplete="name" required></div>
+        <div class="field"><label for="c-company">Company</label><input id="c-company" name="company" autocomplete="organization"></div>
+      </div>
+      <div class="row">
+        <div class="field"><label for="c-email">Email</label><input id="c-email" name="email" type="email" autocomplete="email" required></div>
+        <div class="field"><label for="c-phone">Phone / WhatsApp</label><input id="c-phone" name="phone" type="tel" autocomplete="tel"></div>
+      </div>
+      <div class="field"><label for="c-msg">How can we help?</label><textarea id="c-msg" name="message" required></textarea></div>
+      <button class="btn accent" type="submit">Send message</button>
+      <p class="form-status" role="status" aria-live="polite"></p>
+    </form>
+    <aside class="aside-list">
+      <div class="contact-item"><span class="label">Email</span><a class="val" href="mailto:{{email}}">{{email}}</a></div>
+      <div class="contact-item"><span class="label">Phone</span><a class="val" href="tel:{{phone_raw}}">{{phone}}</a></div>
+      <div class="contact-item"><span class="label">WhatsApp</span><a class="val" href="{{whatsapp}}" target="_blank" rel="noopener">Chat on WhatsApp</a></div>
+      <div class="card">
+        <h3>Prefer a proper call?</h3>
+        <p>Book a free 30-minute consultation to talk through your goals and budget.</p>
+        <a class="more" href="book-consultation.html">Book a consultation →</a>
+      </div>
+    </aside>
+  </div>
+</div>

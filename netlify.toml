@@ -1,0 +1,10 @@
+# Netlify hosting settings. The finished site is already in site/, so no build step is needed.
+[build]
+  publish = "site"
+  command = ""
+
+[[redirects]]
+  from = "https://www.hriddigitalgroup.com/*"
+  to = "https://hriddigitalgroup.com/:splat"
+  status = 301
+  force = true
