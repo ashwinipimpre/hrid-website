@@ -122,3 +122,44 @@
   }, { threshold: 0.3 });
   cards.forEach(function (c) { io.observe(c); });
 })();
+
+// Why choose us: one row of cards that slides by one card every few seconds, looping forever
+(function () {
+  var root = document.querySelector(".why");
+  if (!root) return;
+  var track = root.querySelector(".why-track");
+  var dots = root.querySelectorAll(".why-dots span");
+  var total = track.children.length, idx = 0, busy = false, timer = null, MS = 3500;
+  var still = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  function step() { var c = track.children[0]; return c.getBoundingClientRect().width + parseFloat(getComputedStyle(track).columnGap || 0); }
+  function mark() { dots.forEach(function (d, k) { d.classList.toggle("on", k === idx); }); }
+  function go(dir) {
+    if (busy) return; busy = true;
+    var s = step();
+    if (dir > 0) {
+      track.style.transition = "transform .7s cubic-bezier(.65,0,.35,1)";
+      track.style.transform = "translateX(" + -s + "px)";
+      track.addEventListener("transitionend", function done() {
+        track.removeEventListener("transitionend", done);
+        track.style.transition = "none"; track.appendChild(track.firstElementChild); track.style.transform = "none";
+        busy = false;
+      });
+    } else {
+      track.style.transition = "none"; track.insertBefore(track.lastElementChild, track.firstElementChild);
+      track.style.transform = "translateX(" + -s + "px)"; void track.offsetWidth;
+      track.style.transition = "transform .7s cubic-bezier(.65,0,.35,1)"; track.style.transform = "none";
+      track.addEventListener("transitionend", function done() { track.removeEventListener("transitionend", done); busy = false; });
+    }
+    idx = (idx + dir + total) % total; mark(); restart();
+  }
+  function restart() { clearTimeout(timer); if (!still) timer = setTimeout(function () { go(1); }, MS); }
+  root.querySelectorAll(".why-arrow").forEach(function (b) { b.addEventListener("click", function () { go(Number(b.dataset.dir)); }); });
+  var x0 = null;
+  track.addEventListener("touchstart", function (e) { x0 = e.touches[0].clientX; }, { passive: true });
+  track.addEventListener("touchend", function (e) {
+    if (x0 === null) return; var dx = e.changedTouches[0].clientX - x0; x0 = null;
+    if (Math.abs(dx) > 40) go(dx < 0 ? 1 : -1);
+  });
+  document.addEventListener("visibilitychange", function () { if (document.hidden) clearTimeout(timer); else restart(); });
+  mark(); restart();
+})();
