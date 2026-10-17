@@ -418,9 +418,20 @@ section.about-intro { padding-block: 40px 20px; }
 .why-card::after { content: ""; position: absolute; inset: auto -40% -60% auto; width: 220px; height: 220px; border-radius: 50%; background: radial-gradient(circle, rgba(31,214,236,.18), transparent 70%); transition: transform .5s ease; }
 .why-card:hover { border-color: rgba(31,214,236,.55); transform: translateY(-6px); box-shadow: 0 26px 50px -26px rgba(31,214,236,.5); }
 .why-card:hover::after { transform: scale(1.4); }
-.why-num { position: absolute; top: 18px; right: 22px; font-family: var(--display); font-weight: 800; font-size: 56px; line-height: 1; color: transparent; -webkit-text-stroke: 1px rgba(31,214,236,.35); }
-.why-icon { display: grid; place-items: center; width: 60px; height: 60px; border-radius: 16px; background: var(--grad); margin-bottom: 22px; box-shadow: 0 12px 30px -10px rgba(31,214,236,.6); }
-.why-icon svg { width: 30px; height: 30px; fill: none; stroke: var(--accent-ink); stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+.why-icon { position: relative; display: grid; place-items: center; width: 84px; height: 84px; border-radius: 22px; margin-bottom: 24px;
+  background: radial-gradient(circle at 30% 25%, rgba(31,214,236,.25), rgba(10,111,208,.12) 60%, rgba(4,6,11,.6)); }
+.why-icon::before { content: ""; position: absolute; inset: -2px; border-radius: 24px; padding: 2px;
+  background: conic-gradient(from var(--spin, 0deg), transparent 0 55%, #1fd6ec 75%, #0a6fd0 90%, transparent);
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0); -webkit-mask-composite: xor; mask-composite: exclude; animation: whyspin 4s linear infinite; }
+.why-icon::after { content: ""; position: absolute; inset: 10px; border-radius: 50%; background: rgba(31,214,236,.35); filter: blur(18px); z-index: -1; animation: whypulse 3s ease-in-out infinite; }
+.why-icon svg { width: 62px; height: 62px; animation: whyfloat 4s ease-in-out infinite; filter: drop-shadow(0 6px 12px rgba(0,0,0,.4)); }
+.why-card:nth-child(2n) .why-icon svg { animation-delay: -2s; }
+@property --spin { syntax: "<angle>"; inherits: false; initial-value: 0deg; }
+@keyframes whyspin { to { --spin: 360deg; } }
+@keyframes whyfloat { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-5px); } }
+@keyframes whypulse { 0%, 100% { opacity: .5; transform: scale(.85); } 50% { opacity: 1; transform: scale(1.1); } }
+.why-card:hover .why-icon svg { animation-duration: 1.6s; }
+@media (prefers-reduced-motion: reduce) { .why-icon::before, .why-icon::after, .why-icon svg { animation: none; } }
 .why-card h3 { font-size: 21px; margin-bottom: 10px; position: relative; }
 .why-card p { color: var(--muted); font-size: 15.5px; line-height: 1.6; position: relative; }
 .why-dots { display: flex; justify-content: center; gap: 8px; margin-top: 26px; }
