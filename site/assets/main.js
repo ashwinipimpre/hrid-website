@@ -94,3 +94,31 @@
 
   setPaused(userPaused);
 })();
+
+// Stats band: cards fade in and numbers count up when scrolled into view
+(function () {
+  var cards = document.querySelectorAll(".stat-card");
+  if (!cards.length) return;
+  var still = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  function count(el) {
+    var end = Number(el.dataset.count), t0 = null, dur = 1400;
+    function step(t) {
+      if (!t0) t0 = t;
+      var k = Math.min(1, (t - t0) / dur);
+      el.textContent = Math.round(end * (1 - Math.pow(1 - k, 3)));
+      if (k < 1) requestAnimationFrame(step);
+    }
+    requestAnimationFrame(step);
+  }
+  if (still || !("IntersectionObserver" in window)) { cards.forEach(function (c) { c.classList.add("in"); }); return; }
+  var io = new IntersectionObserver(function (entries) {
+    entries.forEach(function (e) {
+      if (!e.isIntersecting) return;
+      e.target.classList.add("in");
+      var n = e.target.querySelector("[data-count]");
+      if (n) count(n);
+      io.unobserve(e.target);
+    });
+  }, { threshold: 0.3 });
+  cards.forEach(function (c) { io.observe(c); });
+})();
