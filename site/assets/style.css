@@ -264,7 +264,7 @@ main { overflow-x: clip; }
 .slide.is-active { opacity: 1; visibility: visible; transition: opacity .8s ease, visibility 0s; }
 .slide > .wrap { width: 100%; position: relative; z-index: 1; }
 .slide-bg { position: absolute; inset: 0; background-size: cover; background-position: center right; background-repeat: no-repeat; }
-.slide-bg::after { content: ""; position: absolute; inset: 0; background: linear-gradient(90deg, rgba(1,4,11,.94) 0%, rgba(1,4,11,.8) 38%, rgba(1,4,11,.15) 72%, rgba(1,4,11,0) 100%); }
+.slide-bg::after { content: ""; position: absolute; inset: 0; background: linear-gradient(90deg, rgba(1,4,11,.95) 0%, rgba(1,4,11,.88) 38%, rgba(1,4,11,.55) 56%, rgba(1,4,11,.12) 78%, rgba(1,4,11,0) 100%); }
 .slide.is-active .slide-bg { animation: slowzoom 9s ease-out both; }
 @keyframes slowzoom { from { transform: scale(1.06); } to { transform: scale(1); } }
 .slide-text { max-width: 640px; }
