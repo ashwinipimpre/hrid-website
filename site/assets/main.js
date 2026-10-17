@@ -42,3 +42,60 @@
     });
   });
 })();
+
+// Home hero slider: rotates every 6.5s, pauses on hover/focus or with the Pause button.
+(function () {
+  var root = document.querySelector(".hero-slider");
+  if (!root) return;
+  var slides = root.querySelectorAll(".slide");
+  var dots = root.querySelectorAll(".slider-dots button");
+  var pauseBtn = root.querySelector(".slider-pause");
+  var MS = 6500, i = 0, timer = null;
+  var userPaused = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  root.style.setProperty("--slide-ms", MS + "ms");
+
+  function show(n) {
+    i = (n + slides.length) % slides.length;
+    slides.forEach(function (s, k) {
+      var on = k === i;
+      s.classList.toggle("is-active", on);
+      if (on) { s.removeAttribute("aria-hidden"); s.removeAttribute("inert"); }
+      else { s.setAttribute("aria-hidden", "true"); s.setAttribute("inert", ""); }
+    });
+    // clear, force a reflow, then set: restarts the progress bar animation
+    dots.forEach(function (d) { d.removeAttribute("aria-current"); });
+    void root.offsetWidth;
+    dots[i].setAttribute("aria-current", "true");
+    restart();
+  }
+  function stop() { clearTimeout(timer); timer = null; }
+  function restart() { stop(); if (!userPaused && !hovering) timer = setTimeout(function () { show(i + 1); }, MS); }
+  function setPaused(p) {
+    userPaused = p;
+    root.classList.toggle("paused", p);
+    pauseBtn.textContent = p ? "Play" : "Pause";
+    pauseBtn.setAttribute("aria-label", p ? "Resume rotation" : "Pause rotation");
+    restart();
+  }
+  var hovering = false;
+  root.addEventListener("mouseenter", function () { hovering = true; root.classList.add("paused"); stop(); });
+  root.addEventListener("mouseleave", function () { hovering = false; if (!userPaused) root.classList.remove("paused"); show(i); });
+  root.addEventListener("focusin", function () { hovering = true; root.classList.add("paused"); stop(); });
+  root.addEventListener("focusout", function (e) { if (!root.contains(e.relatedTarget)) { hovering = false; if (!userPaused) root.classList.remove("paused"); restart(); } });
+  root.querySelectorAll(".slider-arrow").forEach(function (b) {
+    b.addEventListener("click", function () { show(i + Number(b.dataset.dir)); });
+  });
+  dots.forEach(function (d, k) { d.addEventListener("click", function () { show(k); }); });
+  pauseBtn.addEventListener("click", function () { setPaused(!userPaused); });
+
+  // swipe on phones
+  var x0 = null;
+  root.addEventListener("touchstart", function (e) { x0 = e.touches[0].clientX; }, { passive: true });
+  root.addEventListener("touchend", function (e) {
+    if (x0 === null) return;
+    var dx = e.changedTouches[0].clientX - x0; x0 = null;
+    if (Math.abs(dx) > 50) show(i + (dx < 0 ? 1 : -1));
+  });
+
+  setPaused(userPaused);
+})();
