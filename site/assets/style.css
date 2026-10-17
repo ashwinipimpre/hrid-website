@@ -285,7 +285,7 @@ main { overflow-x: clip; }
 .slide.is-active .slide-text > :nth-child(3) { animation-delay: .24s; }
 @keyframes rise-in { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: none; } }
 .slide-title { font-size: clamp(40px, 6vw, 76px); font-weight: 800; letter-spacing: -.02em; margin-bottom: 20px; }
-.slide-title em { font-style: normal; background: var(--grad); -webkit-background-clip: text; background-clip: text; color: transparent; }
+.slide-title em { display: block; font-style: normal; background: var(--grad); -webkit-background-clip: text; background-clip: text; color: transparent; }
 .slide .lede { font-size: 19px; color: #c9d6e6; max-width: 46ch; margin-bottom: 30px; }
 .slider-controls { position: absolute; left: 0; right: 0; bottom: 30px; display: flex; align-items: center; gap: 14px; flex-wrap: wrap; }
 .slider-dots { display: flex; gap: 8px; }
