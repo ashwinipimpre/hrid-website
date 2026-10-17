@@ -33,7 +33,8 @@ a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible
 }
 h1, h2, h3, h4 { font-family: var(--display); text-wrap: balance; margin: 0; line-height: 1.1; }
 p { margin: 0; }
-.wrap { max-width: 1120px; margin: 0 auto; padding-inline: 24px; }
+/* Full-width layout: content runs edge to edge with a side margin that grows with the screen */
+.wrap { max-width: 2200px; margin: 0 auto; padding-inline: clamp(20px, 5vw, 110px); }
 @media (max-width: 480px) { .wrap { padding-inline: 16px; } body { font-size: 16px; } }
 .label { font-family: var(--mono); font-size: 12px; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); }
 .muted { color: var(--muted); }
@@ -278,6 +279,7 @@ main { overflow-x: clip; }
 .slide.is-active .slide-bg { animation: slowzoom 9s ease-out both; }
 @keyframes slowzoom { from { transform: scale(1.06); } to { transform: scale(1); } }
 .slide-text { max-width: 640px; }
+@media (min-width: 1500px) { .slide-text { max-width: 780px; } .slide-title { font-size: clamp(76px, 4.8vw, 96px); } .slide .lede { font-size: 21px; } }
 .slide.is-active .slide-text > * { animation: rise-in .8s ease both; }
 .slide.is-active .slide-text > :nth-child(2) { animation-delay: .12s; }
 .slide.is-active .slide-text > :nth-child(3) { animation-delay: .24s; }
