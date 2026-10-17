@@ -43,15 +43,15 @@
   });
 })();
 
-// Home hero slider: rotates every 6.5s, pauses on hover/focus or with the Pause button.
+// Home hero slider: rotates every 6s on its own; only the Pause button stops it.
 (function () {
   var root = document.querySelector(".hero-slider");
   if (!root) return;
   var slides = root.querySelectorAll(".slide");
   var dots = root.querySelectorAll(".slider-dots button");
   var pauseBtn = root.querySelector(".slider-pause");
-  var MS = 6500, i = 0, timer = null;
-  var userPaused = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  var MS = 6000, i = 0, timer = null;
+  var userPaused = false;
   root.style.setProperty("--slide-ms", MS + "ms");
 
   function show(n) {
@@ -69,7 +69,7 @@
     restart();
   }
   function stop() { clearTimeout(timer); timer = null; }
-  function restart() { stop(); if (!userPaused && !hovering) timer = setTimeout(function () { show(i + 1); }, MS); }
+  function restart() { stop(); if (!userPaused) timer = setTimeout(function () { show(i + 1); }, MS); }
   function setPaused(p) {
     userPaused = p;
     root.classList.toggle("paused", p);
@@ -77,11 +77,6 @@
     pauseBtn.setAttribute("aria-label", p ? "Resume rotation" : "Pause rotation");
     restart();
   }
-  var hovering = false;
-  root.addEventListener("mouseenter", function () { hovering = true; root.classList.add("paused"); stop(); });
-  root.addEventListener("mouseleave", function () { hovering = false; if (!userPaused) root.classList.remove("paused"); show(i); });
-  root.addEventListener("focusin", function () { hovering = true; root.classList.add("paused"); stop(); });
-  root.addEventListener("focusout", function (e) { if (!root.contains(e.relatedTarget)) { hovering = false; if (!userPaused) root.classList.remove("paused"); restart(); } });
   root.querySelectorAll(".slider-arrow").forEach(function (b) {
     b.addEventListener("click", function () { show(i + Number(b.dataset.dir)); });
   });
